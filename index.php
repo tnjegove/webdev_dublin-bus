@@ -60,7 +60,7 @@
 								$(select).append('<p>No buses at this time!</p>');
 								}
 							else {
-								$(select).append('<div>'+data[i]+'</div>');
+								$(select).append('<p>The bus is due in: '+data[i]+' minutes.</p>');
 								
 							}
 							//$(select).append('<option value=' + data[i] + '>' + data[i] + '</option>');
