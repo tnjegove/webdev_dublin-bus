@@ -17,6 +17,7 @@
   		width: 200px;
   		padding: 25px;
   		border: 25px solid navy;
+		background-image: url('bus.jpg');
 	}
 	</style>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
