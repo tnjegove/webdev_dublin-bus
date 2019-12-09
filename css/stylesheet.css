@@ -1,0 +1,19 @@
+.bart-div {
+ 		background-color: lightblue;
+  		width: 200px;
+  		padding: 25px;
+  		border: 25px solid navy;
+		background-image: url('bus.jpg');
+	}
+	
+.minimum-height {
+	
+	
+	
+}
+
+.waste-some-space {
+	min-height: 200px;
+	
+	
+}
