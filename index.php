@@ -13,26 +13,27 @@
     <title>Dublin bus app</title>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 	<script>
-		$(document).ready(function(){
-			$("#routes").hide();
-			$("#submit").hide();
-			$("#stopnames").change(function() {
-				$("#routes").show();
-				$("#submit").show();
+		$(document).ready(function(){ //when document is finished loading
+			$("#routes").hide(); //hides routes dropdown
+			$("#submit").hide(); //hides submit button
+			$("#stopnames").change(function() { //on change state, do this
+				$("#routes").show(); //show routes dropbox
+				$("#submit").show(); //show submit button
 				$("#bus-data").html('');
-				var stop_data=$(this).val();
+				var stop_data=$(this).val(); // create new variable called stop_data and set it to chosen value of stopnames
 				//alert(stop_data);
-				$.ajax({type: "POST",
-					url: 'test.php',
-					data: {stopid: stop_data},
-					dataType: 'json',
+				$.ajax({type: "POST", //AJAX with call parameters; type is POST method_exists
+					url: 'test.php', //calling test.php file
+					data: {stopid: stop_data}, //send this data in json format to url (test.php)
+					dataType: 'json', // expected response type from test.php
 					
-					success: function(data){
-						console.log(data);
-						var select = document.getElementById('routes');
+					success: function(data){ // if test.php executed successfully, call this function;
+											//	'data' is JSON response from test.php
+						console.log(data); // print to console; debugging purpose
+						var select = document.getElementById('routes'); // new var select
 						$(select).html('');
-						for (var i in data) {
-							$(select).append('<option value=' + data[i] + '>' + data[i] + '</option>');
+						for (var i in data) { // move through array of data which you can get from test.php
+							$(select).append('<option value=' + data[i] + '>' + data[i] + '</option>'); // for every index create HTML as follows and append to #routes
 												
 							
 						}
@@ -42,10 +43,11 @@
 				
 			});
 			
-			$("#submit").click(function() {
-				var stop_data = $("#stopnames").val();
-				var route_data = $("#routes").val();
+			$("#submit").click(function() { // when submit button is clicked
+			var stop_data = $("#stopnames").val(); // put value of #stopnames into stop_data
+				var route_data = $("#routes").val(); // put value of #routes into route_data
 				console.log("button clicked!"+route_data+" "+stop_data);
+				// finish .. operator_data=$("webappcarousel").val();
 				$.ajax({type: "POST",
 					url: 'getrealtimedata.php',
 					data: {stopid: stop_data, routeid: route_data},
@@ -75,8 +77,16 @@
 				
 				
 			});
-			
-			
+		
+			$("#busimageclick").click(function(){ // when image is clicked
+			console.log("click function 1 works")
+			});
+			$("#luasimageclick").click(function(){
+				console.log("click function 2 works")
+			});
+			$("#beimageclick").click(function(){
+				console.log("click function 3 works")
+			});
 		});
 	
 	</script>
@@ -125,8 +135,54 @@
 					</li>
 				</ul>
 			</div>
-		</nav></div>
-	
+		</nav>
+						<!-- Carousel -->
+						<div class="bd-example">
+				  <div id="webappcarousel" class="carousel slide" data-ride="webappcarousel" data-interval="false">
+					<ol class="carousel-indicators">
+					  <li data-target="#webappcarousel" data-value="A" data-slide-to="0" class="active"></li>
+					  <li data-target="#webappcarousel" data-value="B" data-slide-to="1"></li>
+					  <li data-target="#webappcarousel" data-value="C" data-slide-to="2"></li>
+					</ol>
+					
+					<div class="carousel-inner">
+					  <div class="carousel-item active">
+						<img id="busimageclick" src="images/carousel_dbus.png" class="d-block w-100" alt="...">
+						<div class="carousel-caption d-none d-md-block">
+						  <h5>Dublin Bus</h5>
+						  <p>Navigate through available Dublin Bus bus stops. </p>
+						</div>
+					  </div>
+					  
+					  <div class="carousel-item">
+						<img id="luasimageclick" src="images/carousel_luas.jpg" class="d-block w-100" alt="...">
+						<div class="carousel-caption d-none d-md-block">
+						  <h5>LUAS</h5>
+						  <p>Select to view information on LUAS departures and arrivals.</p>
+						</div>
+					  </div>
+					 
+					 <div class="carousel-item">
+						<img id= "beimageclick" src="images/carousel_be.png" class="d-block w-100" alt="...">
+						<div class="carousel-caption d-none d-md-block">
+						  <h5>Bus Eireann</h5>
+						  <p>View existing routes and journeys from Bus Eireann.</p>
+						</div>
+					  </div>
+					</div>
+					
+					<a class="carousel-control-prev" href="#webappcarousel" role="button" data-slide="prev">
+					  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					  <span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#webappcarousel" role="button" data-slide="next">
+					  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					  <span class="sr-only">Next</span>
+					</a>
+				  </div>
+				</div>
+		</div>
+
 	
     <main class="minimum-height"><div class="container">
 	<div class="row">
@@ -208,6 +264,6 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
