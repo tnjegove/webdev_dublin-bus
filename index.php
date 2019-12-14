@@ -24,7 +24,35 @@
 		};
 		*/
 		$(document).ready(function(){ //when document is finished loading
-			
+			var id;
+			$(".carousel").on("slid.bs.carousel", function onSlid (e) {
+				id = e.relatedTarget.id;				
+				//switch (id) {
+					//case "bac": 
+					$.ajax({
+						type: "POST",
+						url: "getBusStops.php",
+						data: {operator: id},
+						dataType: "html",
+						success:function(data) {
+							console.log(data);
+							$("#stopnames").html('');
+							$("#stopnames").append(data);
+							
+							
+						}
+						
+					});
+					
+					//;break;
+					//case "LUAS": console.log("LUAS passed...");break;
+					//case "BE": console.log("BE passed...");break;
+					
+					
+				//}
+				
+				
+			});
 			
 			
 			
@@ -36,11 +64,12 @@
 				$("#submit").show(); //show submit button
 				$("#bus-data").html('');
 				var stop_data=$(this).val(); // create new variable called stop_data and set it to chosen value of stopnames
-				//var operator_data = $(".active", e.target).index();
+				
+				
 				//alert(stop_data);
 				$.ajax({type: "POST", //AJAX with call parameters; type is POST method_exists
 					url: 'test.php', //calling test.php file
-					data: {stopid: stop_data}, //send this data in json format to url (test.php)
+					data: {stopid: stop_data, operatorid: id}, //send this data in json format to url (test.php)
 					dataType: 'json', // expected response type from test.php
 					
 					success: function(data){ // if test.php executed successfully, call this function;
@@ -66,7 +95,7 @@
 				console.log("button clicked!"+route_data+" "+stop_data);
 				$.ajax({type: "POST",
 					url: 'getrealtimedata.php',
-					data: {stopid: stop_data, routeid: route_data},
+					data: {stopid: stop_data, routeid: route_data, operatorid:id},
 					dataType: 'json',
 					error: function (request, status, error) { alert(request.responseText);},
 					success: function(data){
@@ -100,12 +129,12 @@
 	</script>
   </head>
   <body>
-	<header>
-		<div class="container">
+	
+		<div class="container"><header>
 			<h1>Welcome to our Irish Transport Application</h1>
 			<p>We hope to make people's commuting lives easier with the introduction of our app</p>
-		</div>
-	</header>
+		
+	</header></div>
 	<div class="container">
 		<nav class="navbar navbar-expand-xl navbar-light bg-light"> <!-- navigation, which is fixed to the top at all times --> 
 			<div class="navbar-brand"> <!-- left side of navigation bar containing the brand and logo -->
@@ -146,7 +175,13 @@
 		</nav>
 		
 						<!-- Carousel -->
-						<div class="bd-example">
+						
+		</div>
+
+	
+    <main class="minimum-height"><div class="container">
+	<div class="row">
+		<div class="bd-example">
 				  <div id="webappcarousel" class="carousel slide" data-ride="webappcarousel" data-interval="false">
 					<ol class="carousel-indicators">
 					  <li  data-target="#webappcarousel" data-value="A" data-slide-to="0" class="active"></li>
@@ -155,7 +190,7 @@
 					</ol>
 					
 					<div class="carousel-inner">
-					  <div class="carousel-item active">
+					  <div id="bac" class="carousel-item active">
 						<img id="busimageclick" src="images/carousel_dbus.png" class="d-block w-100" alt="...">
 						<div class="carousel-caption d-none d-md-block">
 						  <h5>Dublin Bus</h5>
@@ -163,7 +198,7 @@
 						</div>
 					  </div>
 					  
-					  <div class="carousel-item">
+					  <div id="LUAS" class="carousel-item">
 						<img "id="luasimageclick" src="images/carousel_luas.jpg" class="d-block w-100" alt="...">
 						<div class="carousel-caption d-none d-md-block">
 						  <h5>LUAS</h5>
@@ -171,7 +206,7 @@
 						</div>
 					  </div>
 					 
-					 <div class="carousel-item">
+					 <div id="BE" class="carousel-item">
 						<img id= "beimageclick" src="images/carousel_be.png" class="d-block w-100" alt="...">
 						<div class="carousel-caption d-none d-md-block">
 						  <h5>Bus Eireann</h5>
@@ -190,16 +225,6 @@
 					</a>
 				  </div>
 				</div>
-		</div>
-
-	
-    <main class="minimum-height"><div class="container">
-	<div class="row">
-		<br>
-	
-		<p class="waste-some-space">some text here...</p>
-		
-		<br>
 	
 	</div>
 	
@@ -207,26 +232,26 @@
 	
 	<div class="row">
 		<?php
-	$jsondata=file_get_contents("https://data.smartdublin.ie/cgi-bin/rtpi/busstopinformation?stopid=&operator=bac");
-	$json=json_decode($jsondata,true);
-	$result_fullnames = array("");
-	$result_id = array("");
-	for ($i=0;$i<count($json["results"]);$i++) {
-		$result_fullnames[$i]=$json["results"][$i]["fullname"];
-		$result_id[$i]=$json["results"][$i]["stopid"];
+	//$jsondata=file_get_contents("https://data.smartdublin.ie/cgi-bin/rtpi/busstopinformation?stopid=&operator=bac");
+	//$json=json_decode($jsondata,true);
+	//$result_fullnames = array("");
+	//$result_id = array("");
+	//for ($i=0;$i<count($json["results"]);$i++) {
+		//$result_fullnames[$i]=$json["results"][$i]["fullname"];
+		//$result_id[$i]=$json["results"][$i]["stopid"];
 		
-	}
+	//}
 	
 	?>
 	<div class="col-sm">
 	<h2>Choose your starting stop</h2>
 	<select id="stopnames" name="stopnames">
 	
-	<?php for ($i=0;$i<count($result_fullnames);$i++) {
-		echo '<option value="'.$result_id[$i].'">'.$result_fullnames[$i].'</option>';
+	<?php //for ($i=0;$i<count($result_fullnames);$i++) {
+		//echo '<option value="'.$result_id[$i].'">'.$result_fullnames[$i].'</option>';
 		
 		
-	} 
+	//} 
 	?>
 	</select></div>
 	<div class="col-sm">
