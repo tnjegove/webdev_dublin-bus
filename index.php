@@ -13,7 +13,22 @@
     <title>Dublin bus app</title>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 	<script>
+		/*document.getElementById("busimageclick").onClick = function(){
+			setToBus()
+		};
+		document.getElementById("luasimageclick").onClick = function(){
+			setToLuas()
+		};
+		document.getElementById("beimageclick").onClick = function(){
+			setToBE()
+		};
+		*/
 		$(document).ready(function(){ //when document is finished loading
+			
+			
+			
+			
+			
 			$("#routes").hide(); //hides routes dropdown
 			$("#submit").hide(); //hides submit button
 			$("#stopnames").change(function() { //on change state, do this
@@ -21,6 +36,7 @@
 				$("#submit").show(); //show submit button
 				$("#bus-data").html('');
 				var stop_data=$(this).val(); // create new variable called stop_data and set it to chosen value of stopnames
+				//var operator_data = $(".active", e.target).index();
 				//alert(stop_data);
 				$.ajax({type: "POST", //AJAX with call parameters; type is POST method_exists
 					url: 'test.php', //calling test.php file
@@ -46,8 +62,8 @@
 			$("#submit").click(function() { // when submit button is clicked
 			var stop_data = $("#stopnames").val(); // put value of #stopnames into stop_data
 				var route_data = $("#routes").val(); // put value of #routes into route_data
+				//var operator_data = $('#webappcarousel .active').index('webappcarousel .item')
 				console.log("button clicked!"+route_data+" "+stop_data);
-				// finish .. operator_data=$("webappcarousel").val();
 				$.ajax({type: "POST",
 					url: 'getrealtimedata.php',
 					data: {stopid: stop_data, routeid: route_data},
@@ -78,15 +94,7 @@
 				
 			});
 		
-			$("#busimageclick").click(function(){ // when image is clicked
-			console.log("click function 1 works")
-			});
-			$("#luasimageclick").click(function(){
-				console.log("click function 2 works")
-			});
-			$("#beimageclick").click(function(){
-				console.log("click function 3 works")
-			});
+			
 		});
 	
 	</script>
@@ -136,13 +144,14 @@
 				</ul>
 			</div>
 		</nav>
+		
 						<!-- Carousel -->
 						<div class="bd-example">
 				  <div id="webappcarousel" class="carousel slide" data-ride="webappcarousel" data-interval="false">
 					<ol class="carousel-indicators">
-					  <li data-target="#webappcarousel" data-value="A" data-slide-to="0" class="active"></li>
-					  <li data-target="#webappcarousel" data-value="B" data-slide-to="1"></li>
-					  <li data-target="#webappcarousel" data-value="C" data-slide-to="2"></li>
+					  <li  data-target="#webappcarousel" data-value="A" data-slide-to="0" class="active"></li>
+					  <li  data-target="#webappcarousel" data-value="B" data-slide-to="1"></li>
+					  <li  data-target="#webappcarousel" data-value="C" data-slide-to="2"></li>
 					</ol>
 					
 					<div class="carousel-inner">
@@ -155,7 +164,7 @@
 					  </div>
 					  
 					  <div class="carousel-item">
-						<img id="luasimageclick" src="images/carousel_luas.jpg" class="d-block w-100" alt="...">
+						<img "id="luasimageclick" src="images/carousel_luas.jpg" class="d-block w-100" alt="...">
 						<div class="carousel-caption d-none d-md-block">
 						  <h5>LUAS</h5>
 						  <p>Select to view information on LUAS departures and arrivals.</p>

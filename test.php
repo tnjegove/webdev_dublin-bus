@@ -4,7 +4,8 @@
 	$results2_fullnames = array("");
 	$results2_id = array("");
 	$selected_val = $_POST['stopid'];
-	$link = "https://data.smartdublin.ie/cgi-bin/rtpi/busstopinformation?stopid=".$selected_val."&operator=bac";
+	$selected_operator = $_POST['operatorid'];
+	$link = "https://data.smartdublin.ie/cgi-bin/rtpi/busstopinformation?stopid=".$selected_val."&operator=".$selected_operator;
 	$get_json_with_busid = file_get_contents($link);
 		$busids_decoded = json_decode($get_json_with_busid,true);
 		
