@@ -6,7 +6,11 @@
 		background-image: url('bus.jpg');
 	}
 h1{
-text-align: center; 	
+text-align: center; 
+}
+
+h2{
+text-align: center; 
 }
 .minimum-height {
 	min-height:50px;
