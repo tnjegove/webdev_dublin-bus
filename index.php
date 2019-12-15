@@ -7,8 +7,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/stylesheet.css">
+	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	
+	<link rel="stylesheet" href="css/stylesheet.css">
 
     <title>Dublin bus app</title>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
@@ -25,7 +27,7 @@
 		*/
 		$(document).ready(function(){ //when document is finished loading
 			var id;
-			$(".carousel").on("slide.bs.carousel", function onSlid (e) {
+			$(".carousel").on("slide.bs.carousel", function (e) {
 				$("#routes").hide(); //hides routes dropdown
 				$("#submit").hide(); //hides submit button
 				$("#bus-data").hide();
@@ -110,10 +112,12 @@
 							
 							if (data[i]=="") {
 								console.log("no bus data");
-								$(select).append('<p>No buses at this time!</p>');
+								if (id=="LUAS") {$(select).append('<p>No trams at this time!</p>');}
+								else $(select).append('<p>No buses at this time!</p>');								
 								}
 							else {
-								$(select).append('<p>The bus is due in: '+data[i]+' minutes.</p>');
+								if (id=="LUAS") {$(select).append('<p>The tram is due in: '+data[i]+' minutes.</p>');}
+								else $(select).append('<p>The bus is due in: '+data[i]+' minutes.</p>');
 								
 							}
 							//$(select).append('<option value=' + data[i] + '>' + data[i] + '</option>');
@@ -140,7 +144,7 @@
 		
 	</header></div>
 	<div class="container">
-		<nav class="navbar navbar-expand-xl navbar-light bg-light"> <!-- navigation, which is fixed to the top at all times --> 
+		<nav class="navbar navbar-expand-xl navbar-light"> 
 			<div class="navbar-brand"> <!-- left side of navigation bar containing the brand and logo -->
 				<!--<h2 class="navbar-brand">Tadija's E-shop</h2>-->
 				<img class="logo" src="images/logo_dublinbus.jpg" alt="company logo Rathmines">
@@ -185,7 +189,7 @@
 	
     <main class="minimum-height"><div class="container">
 	<div class="row">
-		<div class="bd-example">
+		<div class="minimum-height"></div>
 				  <div id="webappcarousel" class="carousel slide" data-ride="webappcarousel" data-interval="false">
 					<ol class="carousel-indicators">
 					  <li  data-target="#webappcarousel" data-value="A" data-slide-to="0" class="active"></li>
@@ -195,26 +199,26 @@
 					
 					<div class="carousel-inner">
 					  <div id="bac" class="carousel-item active">
-						<img id="busimageclick" src="images/carousel_dbus.png" class="d-block w-100" alt="...">
+						<img  src="images/carousel_dbus.png" class="d-block w-100" alt="...">
 						<div class="carousel-caption d-none d-md-block">
-						  <h5>Dublin Bus</h5>
-						  <p>Navigate through available Dublin Bus bus stops. </p>
+						  <h5 class="text-success">Dublin Bus</h5>
+						  <p class="text-success">Navigate through available Dublin Bus bus stops. </p>
 						</div>
 					  </div>
 					  
 					  <div id="LUAS" class="carousel-item">
-						<img "id="luasimageclick" src="images/carousel_luas.jpg" class="d-block w-100" alt="...">
+						<img  src="images/carousel_luas.jpg" class="d-block w-100" alt="...">
 						<div class="carousel-caption d-none d-md-block">
-						  <h5>LUAS</h5>
-						  <p>Select to view information on LUAS departures and arrivals.</p>
+						  <h5 class="text-success">LUAS</h5>
+						  <p class="text-success">Select to view information on LUAS departures and arrivals.</p>
 						</div>
 					  </div>
 					 
 					 <div id="BE" class="carousel-item">
-						<img id= "beimageclick" src="images/carousel_be.png" class="d-block w-100" alt="...">
+						<img src="images/carousel_be.png" class="d-block w-100" alt="...">
 						<div class="carousel-caption d-none d-md-block">
-						  <h5>Bus Eireann</h5>
-						  <p>View existing routes and journeys from Bus Eireann.</p>
+						  <h5 class="text-success">Bus Eireann</h5>
+						  <p class="text-success">View existing routes and journeys from Bus Eireann.</p>
 						</div>
 					  </div>
 					</div>
@@ -227,14 +231,14 @@
 					  <span class="carousel-control-next-icon" aria-hidden="true"></span>
 					  <span class="sr-only">Next</span>
 					</a>
-				  </div>
-				</div>
+				  </div><div class="minimum-height"></div>
+				
 	
 	</div>
 	
 	
 	
-	<div class="row">
+	<div id="main-data" class="row">
 		<?php
 	//$jsondata=file_get_contents("https://data.smartdublin.ie/cgi-bin/rtpi/busstopinformation?stopid=&operator=bac");
 	//$json=json_decode($jsondata,true);
@@ -247,8 +251,9 @@
 	//}
 	
 	?>
-	<div class="col-sm">
-	<h2>Choose your starting stop</h2>
+	<div class="col">
+	<h2>Choose your starting station</h2>
+	<div class="box">
 	<select id="stopnames" name="stopnames">
 	
 	<?php //for ($i=0;$i<count($result_fullnames);$i++) {
@@ -257,12 +262,12 @@
 		
 	//} 
 	?>
-	</select></div>
-	<div class="col-sm">
-	<select id="routes" name="routes"></select>
-	<button type="submit" id="submit">Search!</button></div>
+	</select></div></div>
+	<div class="col"><h2>Choose your route</h2>
+	<div class="box"><select id="routes" name="routes"></select></div>
+	<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit">Search!</button></div>
 	
-	<div class="col-sm" id="bus-data"></div>
+	<div class="col"><h2>Choose your starting stop</h2><div id="bus-data"></div></div>
 	</div>
 	<div class="row">
 		<br>
