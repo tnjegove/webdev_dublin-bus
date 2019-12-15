@@ -116,8 +116,8 @@
 								else $(select).append('<p>No buses at this time!</p>');								
 								}
 							else {
-								if (id=="LUAS") {$(select).append('<p>The tram is due in: '+data[i]+' minutes.</p>');}
-								else $(select).append('<p>The bus is due in: '+data[i]+' minutes.</p>');
+								if (id=="LUAS") {$(select).append('<p><i class="fa fa-train" aria-hidden="true"></i> in '+data[i]+' minutes</p>');}
+								else $(select).append('<p><i class="fa fa-bus" aria-hidden="true"></i> in '+data[i]+' minutes</p>');
 								
 							}
 							//$(select).append('<option value=' + data[i] + '>' + data[i] + '</option>');
@@ -139,8 +139,8 @@
   <body>
 	
 		<div class="container"><header>
-			<h1>Welcome to our Irish Transport Application</h1>
-			<p>We hope to make people's commuting lives easier with the introduction of our app</p>
+			<h1 id="title">Welcome to our Irish Transport Application</h1>
+			<p id="subtitle">We hope to make people's commuting lives easier with the introduction of our app</p>
 		
 	</header></div>
 	<div class="container">
@@ -201,24 +201,24 @@
 					  <div id="bac" class="carousel-item active">
 						<img  src="images/carousel_dbus.png" class="d-block w-100" alt="...">
 						<div class="carousel-caption d-none d-md-block">
-						  <h5 class="text-success">Dublin Bus</h5>
-						  <p class="text-success">Navigate through available Dublin Bus bus stops. </p>
+						  <h5 >Dublin Bus</h5>
+						  <p >Navigate through available Dublin Bus bus stops. </p>
 						</div>
 					  </div>
 					  
 					  <div id="LUAS" class="carousel-item">
 						<img  src="images/carousel_luas.jpg" class="d-block w-100" alt="...">
 						<div class="carousel-caption d-none d-md-block">
-						  <h5 class="text-success">LUAS</h5>
-						  <p class="text-success">Select to view information on LUAS departures and arrivals.</p>
+						  <h5 >LUAS</h5>
+						  <p >Select to view information on LUAS departures and arrivals.</p>
 						</div>
 					  </div>
 					 
 					 <div id="BE" class="carousel-item">
 						<img src="images/carousel_be.png" class="d-block w-100" alt="...">
 						<div class="carousel-caption d-none d-md-block">
-						  <h5 class="text-success">Bus Eireann</h5>
-						  <p class="text-success">View existing routes and journeys from Bus Eireann.</p>
+						  <h5 >Bus Eireann</h5>
+						  <p >View existing routes and journeys from Bus Eireann.</p>
 						</div>
 					  </div>
 					</div>
@@ -252,8 +252,8 @@
 	
 	?>
 	<div class="col">
-	<h2>Choose your starting station</h2>
-	<div class="box">
+	<h2 class="column-title">Select Location</h2>
+	<div class="box"><!--https://codepen.io/FrankieDoodie/pen/Pyrqyp-->
 	<select id="stopnames" name="stopnames">
 	
 	<?php //for ($i=0;$i<count($result_fullnames);$i++) {
@@ -263,28 +263,21 @@
 	//} 
 	?>
 	</select></div></div>
-	<div class="col"><h2>Choose your route</h2>
+	<div class="col"><h2 class="column-title">Choose Pickup</h2>
 	<div class="box"><select id="routes" name="routes"></select></div>
 	<button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit">Search!</button></div>
 	
-	<div class="col"><h2>Choose your starting stop</h2><div id="bus-data"></div></div>
+	<div class="col"><h2 class="column-title">Available Times</h2><div id="bus-data"></div></div>
 	</div>
-	<div class="row">
-		<br>
 	
-		<p class="waste-some-space">some text here...</p>
-		
-		<br>
-	
-	</div>
 	
 	</div></main>
 	<footer>
-		<div class="container">
-			<nav class="navbar navbar-expand-lg bg-light">
+		<div class="container fixed-bottom">
+			<nav class="navbar navbar-expand-lg bg-light ">
 	
 		<ul class="navbar-nav mr-auto"> <!-- links for social media implemented using font awesome -->
-			<li class="navbar-brand">Copyright &copy; 2019 Tadija @ NCI</li> 
+			<li class="navbar-brand">Copyright &copy; 2019 Group AM @ NCI</li> 
 			<li ><a class="nav-link" href="#"><i class="fab fa-facebook-f"></i></a></li>
 			<li ><a class="nav-link" href="#"><i class="fab fa-google"></i></a></li>
 			<li ><a class="nav-link" href="#"><i class="fab fa-twitter"></i></a></li>

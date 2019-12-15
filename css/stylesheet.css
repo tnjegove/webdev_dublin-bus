@@ -15,8 +15,25 @@ text-align: center;
 }
 
 .waste-some-space {
-	min-height: 200px;
+	min-height: 50px;
 	
+	
+}
+
+.column-title {
+	
+	
+}
+
+h1,h2,p{
+text-align: center; 	
+}
+
+#bus-data {
+	position: absolute;
+  top: 35%;
+  left: 40%;
+  transform: translate(-50%, -50%);
 	
 }
 
