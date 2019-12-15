@@ -25,7 +25,10 @@
 		*/
 		$(document).ready(function(){ //when document is finished loading
 			var id;
-			$(".carousel").on("slid.bs.carousel", function onSlid (e) {
+			$(".carousel").on("slide.bs.carousel", function onSlid (e) {
+				$("#routes").hide(); //hides routes dropdown
+				$("#submit").hide(); //hides submit button
+				$("#bus-data").hide();
 				id = e.relatedTarget.id;				
 				//switch (id) {
 					//case "bac": 
@@ -89,6 +92,7 @@
 			});
 			
 			$("#submit").click(function() { // when submit button is clicked
+			$("#bus-data").show();
 			var stop_data = $("#stopnames").val(); // put value of #stopnames into stop_data
 				var route_data = $("#routes").val(); // put value of #routes into route_data
 				//var operator_data = $('#webappcarousel .active').index('webappcarousel .item')
